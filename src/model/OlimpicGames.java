@@ -43,7 +43,9 @@ public class OlimpicGames {
             System.out.println(content);
             Gson gson = new Gson();
             Country[] array = gson.fromJson(content, Country[].class); //Almaceno los datos como arreglo.
-            countries.addAll(Arrays.asList(array));
+            if(array!=null) {
+                countries.addAll(Arrays.asList(array));
+            }
             fis.close();//Cierro el lector.
         }else {
             File f = new File(folder);
