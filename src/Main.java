@@ -15,29 +15,34 @@ public class Main {
             System.out.println("Juegos Olimpicos Paris 2024");
             System.out.println("****************************");
             System.out.println("1. Ingresar un pais\n2. Mostrar medalleria\n3. Mostrar total de medallas\n4. Mostrar paises\n5. Salir");
-            int option = Integer.parseInt(reader.nextLine());
+            int option = 0;
+            try {
+                option = Integer.parseInt(reader.nextLine());
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
             switch (option) {
                 case 1:
                     System.out.println("Ingrese el pais en el formato, Nombre::Tipo de medalla obtenida::Cantidad de medallas obtenidas");
                     String input = reader.nextLine();
                     String[] data = input.split("::");
-                        try{
-                            if (data[1].equalsIgnoreCase("ORO")) {
-                                olimpicGames.addCountry(new Country(data[0], Integer.parseInt(data[2]), 0, 0));
-                            } else if (data[1].equalsIgnoreCase("PLATA")) {
-                                olimpicGames.addCountry(new Country(data[0], 0, Integer.parseInt(data[2]), 0));
-                            } else if (data[1].equalsIgnoreCase("BRONCE")) {
-                                olimpicGames.addCountry(new Country(data[0], 0, 0, Integer.parseInt(data[2])));
-                            } else {
-                                try {
-                                    throw new NotTypeofMedalException();
-                                } catch (NotTypeofMedalException e) {
-                                    e.printStackTrace();
-                                }
+                    try {
+                        if (data[1].equalsIgnoreCase("ORO")) {
+                            olimpicGames.addCountry(new Country(data[0], Integer.parseInt(data[2]), 0, 0));
+                        } else if (data[1].equalsIgnoreCase("PLATA")) {
+                            olimpicGames.addCountry(new Country(data[0], 0, Integer.parseInt(data[2]), 0));
+                        } else if (data[1].equalsIgnoreCase("BRONCE")) {
+                            olimpicGames.addCountry(new Country(data[0], 0, 0, Integer.parseInt(data[2])));
+                        } else {
+                            try {
+                                throw new NotTypeofMedalException();
+                            } catch (NotTypeofMedalException e) {
+                                e.printStackTrace();
                             }
-                        }catch (ArrayIndexOutOfBoundsException | NumberFormatException e){
-                            e.printStackTrace();
                         }
+                    } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
+                        e.printStackTrace();
+                    }
                     olimpicGames.save();
                     break;
                 case 2:
